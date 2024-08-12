@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Editor de Texto - DOM y JavaScript</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container my-1 my-sm-2 my-md-4 my-lg-5">
+        <h1>Editor de Texto</h1>
+        <div class="card">
+            <div class="card-body">
+                <h2>Texto</h2>
+
+                <p class="texto" id="texto">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec elementum auctor libero, vel imperdiet est. Etiam blandit facilisis ex, nec cursus metus pharetra quis. Fusce imperdiet nisl nibh, ac aliquet ante elementum vitae.</p>
+
+                
+
+                <h2>Opciones de Formato</h2>
+
+
+                <div class="row">
+                    <div class="col-12 col-md-6 my-1">
+                        <input type="text" id="input-actualizar" class="form-control w-100" placeholder="Ingrese nuevo texto">
+                    </div>
+                    <div class="col-12 col-md-6 my-1">
+                        <button id="btn-actualizar" class="btn btn-primary w-100">Actualizar</button>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-12 col-md-4 my-1">
+                        <button id="btn-negrita" class="btn d-block w-100 btn-primary" data-formato="negrita">
+                            Bold (Negrita)
+                        </button>
+                    </div>
+                    <div class="col-12 col-md-4 my-1">
+                        <button id="btn-cursiva" class="btn d-block w-100 btn-primary" data-formato="cursiva">
+                            Italic (Cursiva)
+                        </button>
+                    </div>
+                    <div class="col-12 col-md-4 my-1">
+                        <button id="btn-subrayado" class="btn d-block w-100 btn-primary" data-formato="subrayado">
+                            Underline (Subrayado)
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-md-4 my-1">
+                        <label for="exampleColorInput" class="form-label">Color picker</label>
+                        <input type="color" class="form-control form-control-color" id="exampleColorInput" value="#563d7c" title="Choose your color">
+                    </div>
+            
+                    <div class="col-12 col-md-4 my-1">
+                        <label for="customRange1" class="form-label">Tamaño del Texto</label>
+                        <input type="range" class="form-range w-100" id="customRange1" min="10" max="20">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        function funcionNegrita() {
+            var texto = document.getElementById('texto');
+            texto.style.fontWeight = 'bold';
+        }
+
+        function funcionCursiva() {
+            var texto = document.getElementById('texto');
+            texto.style.fontStyle = 'italic';
+        }
+
+        function funcionSubrayado() {
+            var texto = document.getElementById('texto');
+            texto.style.textDecoration = 'underline';
+        }
+
+        function funcionColor() {
+            var texto = document.getElementById('texto');
+            var colorSeleccionado = document.getElementById('exampleColorInput').value;
+            texto.style.color = colorSeleccionado;
+        }
+
+        function funcionActualizar() {
+            var nuevoTexto = document.getElementById('input-actualizar').value;
+            var texto = document.getElementById('texto');
+            texto.innerText = nuevoTexto;
+        }
+
+        function funcionTamano() {
+            var tamano = document.getElementById('customRange1').value;
+            var texto = document.getElementById('texto');
+            texto.style.fontSize = tamano + 'px';
+        }
+
+        function handlerBoton(e) {
+            const funcionBoton = e.target.dataset.formato;
+            switch (funcionBoton) {
+                case 'negrita':
+                    funcionNegrita();
+                    break;
+                case 'cursiva':
+                    funcionCursiva();
+                    break;
+                case 'subrayado':
+                    funcionSubrayado();
+                    break;
+            }
+        }
+
+        document.querySelectorAll('button.btn').forEach(e => e.addEventListener('click', handlerBoton));
+        document.getElementById('customRange1').addEventListener('input', funcionTamano);
+        document.getElementById('exampleColorInput').addEventListener('input', funcionColor);
+    </script>
+</body>
+</html>
